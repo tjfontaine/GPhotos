@@ -6,9 +6,13 @@
 //  Copyright © 2019 Deivi Taka. All rights reserved.
 //
 
-import UIKit
+
 import GTMAppAuth
 import AppAuth
+
+#if canImport(UIKit)
+import UIKit
+#endif
 
 public class GPhotos {
     
@@ -83,9 +87,11 @@ internal extension GPhotos {
             fatalError("Could not load GoogleService-Info.plist. Please make sure it is added to the project.")
         }
         
+        #if canImport(UIKit)
         guard topVC != nil else {
             fatalError("Could not find a view controller. Please make sure you are not calling from 'viewDidLoad' on the first View Controller.")
         }
+        #endif
     }
     
     static func refreshTokenIfNeeded(completion: (()->())? = nil) {
@@ -183,6 +189,7 @@ fileprivate extension GPhotos {
                                               additionalParameters: [:])
         
         main {
+            #if canImport(UIKit)
             currentAuthFlow = OIDAuthState.authState(byPresenting: request, presenting: topVC!) { (state, error) in
                 guard let state = state else {
                     self.authorization = nil
@@ -199,6 +206,7 @@ fileprivate extension GPhotos {
                 if !success { log.e("Could not save in keychain.") }
                 completion?(success, error)
             }
+            #endif
         }
 
     }

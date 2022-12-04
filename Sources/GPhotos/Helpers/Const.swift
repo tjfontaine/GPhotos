@@ -6,11 +6,11 @@
 //  Copyright © 2019 Deivi Taka. All rights reserved.
 //
 
-import UIKit
 import GTMAppAuth
 
 //MARK: Global variables
-
+#if canImport(UIKit)
+import UIKit
 internal var topVC: UIViewController? {
     if var topController = UIApplication.shared.keyWindow?.rootViewController {
         while let presentedViewController = topController.presentedViewController {
@@ -20,6 +20,7 @@ internal var topVC: UIViewController? {
     }
     return nil
 }
+#endif
 
 internal var config = Config()
 internal var defaults = UserDefaults.standard

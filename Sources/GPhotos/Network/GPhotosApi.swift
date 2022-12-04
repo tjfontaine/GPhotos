@@ -12,8 +12,9 @@ public struct GPhotosApi {
     private init() {}
     
     internal static let plugins: [PluginType] = [
-        NetworkLoggerPlugin(verbose: config.printNetworkLogs),
-        AccessTokenPlugin(tokenClosure: { return Strings.photosAccessToken })
+        NetworkLoggerPlugin(configuration: NetworkLoggerPlugin.Configuration(logOptions: config.printNetworkLogs ? .verbose : .default
+        )),
+        AccessTokenPlugin(tokenClosure: { _ in return Strings.photosAccessToken })
     ]
     
     public static let mediaItems = MediaItems()

@@ -48,7 +48,7 @@ internal extension GPhotosResource {
     }
     
     func handle(error: Status) {
-        log.e(error.message)
+        log.e(error.message ?? "unknonw status")
     }
     
     func autoAuthorize(_ scopes: ScopeSet, completion: @escaping ()->()) {

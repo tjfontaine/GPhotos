@@ -10,7 +10,7 @@ import Moya
 
 public class MediaItems : GPhotosResource {
     
-    public typealias Item = (image: UIImage, filename: String?)
+    public typealias Item = (image: Data?, filename: String?)
     
     fileprivate let api = MoyaProvider<MediaItemsService>(plugins: GPhotosApi.plugins)
     
@@ -161,7 +161,7 @@ public extension MediaItems {
 public extension MediaItems {
     
     internal func upload(item: Item, completion: @escaping ((String?)->())) {
-        guard let data = item.image.pngData() else {
+        guard let data = item.image else {
             completion(nil)
             return
         }
